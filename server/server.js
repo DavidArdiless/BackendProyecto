@@ -1,6 +1,7 @@
 require ('dotenv').config();
 require ('../database/database');
 const express = require ('express');
+const cors = require('cors');
 const app = express();
 const addHabitacion =require('../router/habitacionRouter');
 const getHabitaciones= require('../router/habitacionRouter');
@@ -11,6 +12,11 @@ const addUser = require('../router/userRouter');
 const getAllUsers = require('../router/userRouter');
 const deleteUser = require('../router/userRouter');
 const updateUser = require('../router/userRouter');
+const { corsOptions } = require('../config/corsOptions');
+const credentials = require('../middlewares/credentials.js')
+
+app.use(credentials)
+app.use(cors(corsOptions))
 app.use(express.json());
 
 
