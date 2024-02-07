@@ -8,10 +8,7 @@ const habitacionSchema = new Schema({
   precio: Number,
   descripcion: String,
   estado: Boolean,
-  img: {
-    data: Buffer,
-    contentType: String
-  },
+  img: String,
   reservas: [{
     usuario: String,
     fechaInicio: Date,
