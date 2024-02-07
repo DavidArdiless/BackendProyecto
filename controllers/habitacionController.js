@@ -1,8 +1,8 @@
 const multer = require('multer');
-const Habitacion = require('../models/habitacionModel'); // Cambiado a Habitacion
+const Habitacion = require('../models/habitacionModel'); 
 
 const addHabitacion = async (req, res) => {
-  const storage = multer.memoryStorage(); // Almacenar en memoria para luego convertir a Buffer
+  const storage = multer.memoryStorage(); 
   const upload = multer({ storage: storage });
   const { numeroHab, tipoHab, precio, descripcion, estado } = req.body;
 
@@ -13,17 +13,14 @@ const addHabitacion = async (req, res) => {
       precio,
       descripcion,
       estado,
-      img: {
-        data: req.file.buffer,
-        contentType: req.file.mimetype
-      }
+      reservas: []
     });
 
     await nuevaHabitacion.save();
-    res.status(201).json({ message: 'Habitación con imagen guardada exitosamente.' });
+    res.status(201).json({ message: 'Habitación guardada exitosamente.' });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Error al guardar la habitación con imagen.' });
+    res.status(500).json({ error: 'Error al guardar la habitación.' });
   }
 };
 
@@ -36,17 +33,7 @@ const getHabitaciones = async (req, res) => {
         return res.status(404).json({ error: 'No se encontraron habitaciones.' });
       }
   
-      const habitacionesConImagen = habitaciones.map(habitacion => {
-        return {
-          ...habitacion._doc,
-          img: {
-            data: habitacion.img.data.toString('base64'),
-            contentType: habitacion.img.contentType,
-          },
-        };
-      });
-  
-      res.json({ habitaciones: habitacionesConImagen });
+      res.json({ habitaciones });
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'Error interno del servidor.' });
@@ -61,15 +48,7 @@ const getHabitaciones = async (req, res) => {
         return res.status(404).json({ error: 'Habitación no encontrada.' });
       }
   
-      const habitacionConImagen = {
-        ...habitacion._doc,
-        img: {
-          data: habitacion.img.data.toString('base64'),
-          contentType: habitacion.img.contentType,
-        },
-      };
-  
-      res.json({ habitacion: habitacionConImagen });
+      res.json({ habitacion });
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'Error interno del servidor.' });
