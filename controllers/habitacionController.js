@@ -1,10 +1,8 @@
 const multer = require('multer');
 const Habitacion = require('../models/habitacionModel'); 
-
 const addHabitacion = async (req, res) => {
-  const storage = multer.memoryStorage(); 
-  const upload = multer({ storage: storage });
-  const { numeroHab, tipoHab, precio, descripcion, estado } = req.body;
+
+  const { numeroHab, tipoHab, precio, descripcion, estado, img} = req.body;
 
   try {
     const nuevaHabitacion = new Habitacion({
@@ -13,6 +11,7 @@ const addHabitacion = async (req, res) => {
       precio,
       descripcion,
       estado,
+      img,
       reservas: []
     });
 
@@ -81,7 +80,7 @@ const getHabitaciones = async (req, res) => {
     try {
       const habitacion = await Habitacion.findOneAndUpdate(
         { numeroHab },
-        { tipoHab, precio, descripcion, estado },
+        { tipoHab, precio, descripcion, estado,img },
         { new: true } // Devuelve el documento actualizado
       );
   
