@@ -1,9 +1,6 @@
-const {Router} = require('express');
+const { Router } = require("express");
 const route = Router();
-const multer = require('multer'); 
 const {addHabitacion, getHabitaciones, getHabitacion, updateHabitacion, deleteHabitacion} = require('../controllers/habitacionController')
-const storage = multer.memoryStorage();
-const upload = multer({ storage: storage });
 
 route.post('/habitaciones',addHabitacion)
 route.get('/habitaciones',getHabitaciones)
