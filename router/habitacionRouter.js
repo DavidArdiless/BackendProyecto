@@ -5,7 +5,7 @@ const {addHabitacion, getHabitaciones, getHabitacion, updateHabitacion, deleteHa
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
-route.post('/habitacion',upload.single('img'),addHabitacion)
+route.post('/habitaciones',addHabitacion)
 route.get('/habitaciones',getHabitaciones)
 route.get('/habitacion/:numero',getHabitacion)
 route.patch('/habitacion/:numero',updateHabitacion)
